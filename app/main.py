@@ -9,7 +9,7 @@ class BaseRobot:
         self,
         name: str,
         weight: int,
-        coords: list[int, int] = [0, 0],
+        coords: list = [0, 0],
     ) -> None:
         self.name = name
         self.weight = weight
@@ -28,9 +28,17 @@ class BaseRobot:
         self.coords[0] -= step
 
 
-robot = BaseRobot(name="Walle", weight=34, coords=[3, -2])
-robot.go_forward()
-# robot.coords == [3, -1]
-robot.go_right(5)
-# robot.coords == [8, -1]
-print(robot.coords)
+class FlyingRobot(BaseRobot):
+    def __init__(
+        self,
+        name: str,
+        weight: int,
+        coords: list = [0, 0, 0],
+    ) -> None:
+        super().__init__(name, weight, coords)
+
+    def go_up(self, step: int = 1) -> None:
+        self.coords[2] += step
+
+    def go_down(self, step: int = 1) -> None:
+        self.coords[2] -= step
